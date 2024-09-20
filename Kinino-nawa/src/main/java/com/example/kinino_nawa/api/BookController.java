@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @Configuration
+@RequestMapping("books")
 public class BookController implements WebMvcConfigurer {
 
     @PersistenceContext
@@ -29,11 +30,10 @@ public class BookController implements WebMvcConfigurer {
 
 
     @PostMapping("hello")
-    public BookBean helloWorld(@RequestBody BookBean req ) {
-        BookBean bean = new BookBean();
-        bean.setBookName(req.getBookName());
+    public List<BookBean> helloWorld(@RequestBody BookBean req ) {
 
-        return bookService.getBookAll(bean);
+        return bookService.getBookAll(req);
+
 
     }
 
