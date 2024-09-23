@@ -1,14 +1,14 @@
 package com.example.kinino_nawa.service;
 
 import com.example.kinino_nawa.dto.BookBean;
+import com.example.kinino_nawa.entity.BookEntity;
+import com.example.kinino_nawa.repository.BookRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.Query;
-import jakarta.persistence.Tuple;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Integer.parseInt;
@@ -21,35 +21,31 @@ public class BookService {
     private EntityManager entityManager;
 
 
+    @Autowired
+    private BookRepository bookRepository;
+
+
     @Transactional
-    @SuppressWarnings("unchecked")
-    public List<BookBean> getBookAll(BookBean req)  {
-
-        List<Tuple>  result = entityManager.createNativeQuery("SELECT bookName, totalPage , amount from book" , Tuple.class)
-                .getResultList();
-
-
-        if(result.isEmpty()) {
-            return null;
-        } else {
-        List<BookBean> resultLists = new ArrayList<>();
-            for (int i = 0 ; i < result.size() ; ++i) {
-
-                Tuple tuple = result.get(i);
-
-                BookBean bean = new BookBean();
-                bean.setBookName(tuple.get("bookName", String.class));
-                bean.setTotalPage(parseLong(tuple.get("totalPage", String.class)));
-                bean.setAmount(tuple.get("amount", Integer.class));
-
-                resultLists.add(bean);
-
-            }
-
-            return resultLists;
-        }
-
-
+    public List<BookEntity> getBookAll(BookBean req)  {
+        return bookRepository.findAll();
 
     }
+
+    @Transactional
+    public BookEntity getBookById(BookBean req) {
+        return bookRepository.findById(req.getBookRef()).orElse(null);
+
+    }
+
+
+    @Transactional
+    public BookEntity addBook(BookEntity req) {
+        return bookRepository.save(req);
+    }
+
+    @Transactional
+    public void deleteBook(BookBean req) {
+        bookRepository.deleteById(req.getBookRef());
+    }
+
 }

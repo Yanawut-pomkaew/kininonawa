@@ -1,6 +1,7 @@
 package com.example.kinino_nawa.api;
 
 import com.example.kinino_nawa.dto.BookBean;
+import com.example.kinino_nawa.entity.BookEntity;
 import com.example.kinino_nawa.service.BookService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -29,12 +30,31 @@ public class BookController implements WebMvcConfigurer {
     }
 
 
-    @PostMapping("hello")
-    public List<BookBean> helloWorld(@RequestBody BookBean req ) {
+    @PostMapping("getAllBooks")
+    public List<BookEntity> getAllBooks(@RequestBody BookBean req ) {
 
         return bookService.getBookAll(req);
 
 
     }
+
+    @PostMapping("getBookById")
+    public BookEntity getBookById(@RequestBody BookBean req ) {
+        return bookService.getBookById(req);
+    }
+
+    @PostMapping("addBook")
+    public BookEntity addBook(@RequestBody BookEntity req ) {
+        return bookService.addBook(req);
+    }
+
+    @PostMapping("deleteBook")
+    public void deleteBook(@RequestBody BookBean req ) {
+        bookService.deleteBook(req);
+    }
+
+
+
+
 
 }

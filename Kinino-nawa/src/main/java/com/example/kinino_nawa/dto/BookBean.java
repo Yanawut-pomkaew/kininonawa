@@ -3,6 +3,7 @@ package com.example.kinino_nawa.dto;
 import lombok.*;
 
 import java.io.Serializable;
+import java.sql.Blob;
 import java.util.Date;
 import java.util.UUID;
 
@@ -17,13 +18,17 @@ public class BookBean implements Serializable {
     private String bookName;
     private Long price;
     private String author;
-    private long totalPage;
+    private String totalPage;
     private String description;
-    private long amount;
+    private Long amount;
+    private Long rentable;
     private String category1;
     private String category2;
     private String category3;
     private Date printDate;
+    private Blob img;
+
+    private Date createDate;
 
 
 }
