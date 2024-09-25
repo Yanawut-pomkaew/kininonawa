@@ -1,11 +1,9 @@
 package com.example.kinino_nawa;
 
-import com.example.kinino_nawa.api.BookController;
 import com.example.kinino_nawa.entity.BookEntity;
 import com.example.kinino_nawa.repository.BookRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -16,22 +14,16 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-//@RunWith(MockitoJUnitRunner.class)
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 class KininoNawaApplicationTest {
 
     @Autowired
     private BookRepository bookRepository;
 
-
-    @InjectMocks
-    private BookController booksController;
-
-
     @Test
     void mainTest() {
-        String name = "name1";
-        assertEquals("name1" , name);
+        String doneJob = "TESTING ARE WORKING";
+        assertEquals("TESTING ARE WORKING" , doneJob);
     }
 
     @Test
@@ -74,4 +66,5 @@ class KininoNawaApplicationTest {
         Assertions.assertNull(selectedBookAgain);
 
     }
+
 }
